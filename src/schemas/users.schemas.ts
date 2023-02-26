@@ -9,6 +9,7 @@ export const UserRequestSchema = z.object({
 		.string()
 		.min(8)
 		.transform((pass) => hashSync(pass, 10)),
+    admin:z.boolean().optional()
 });
 
 // USER SCHEMA

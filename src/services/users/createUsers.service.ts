@@ -28,18 +28,14 @@ const createUsersService = async (
 	const queryString: string = format(
 		`INSERT INTO users(%I)
         VALUES (%L)
-        RETURNING *;`,
+        RETURNING id, name, email, admin, active;`,
 		Object.keys(userData),
 		Object.values(userData)
 	);
 
 	const queryResult: iUserResult = await client.query(queryString);
 
-	const newUser: iUserWithoutPassword = UserSchemaWithoutPassword.parse(
-		queryResult.rows[0]
-	);
-
-	return newUser;
+	return queryResult.rows[0];
 };
 
 export default createUsersService;
