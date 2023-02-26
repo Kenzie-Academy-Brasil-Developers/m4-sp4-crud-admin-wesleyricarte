@@ -6,7 +6,6 @@ import {
 import { client } from '../../database';
 import format from 'pg-format';
 import { QueryConfig, QueryResult } from 'pg';
-import { UserSchemaWithoutPassword } from '../../schemas/users.schemas';
 import { AppError } from '../../errors';
 
 const createUsersService = async (
@@ -22,7 +21,7 @@ const createUsersService = async (
 	);
 
 	if (queryResultUserExists.rowCount !== 0) {
-		throw new AppError('User already exists!', 409);
+		throw new AppError('Email already exists!', 409);
 	}
 
 	const queryString: string = format(
